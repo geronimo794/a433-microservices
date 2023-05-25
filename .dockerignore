@@ -3,8 +3,8 @@ src/node_modules
 
 # Ignore build command and configuration too
 # Variable file
-format.env.sh
-env.sh
+format.env
+.env
 # Build command
 build_push_image.sh
 # The main dockerfile

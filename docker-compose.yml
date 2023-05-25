@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  # Creeate database server
+  item-db:
+    # Use mongo 3
+    image: mongo:3
+    # Restart container when failure
+    restart: on-failure
+    # Set network alias to communicate
+    networks:
+      default:
+        aliases:
+          - item-db
+    # Set persistent volume
+    volumes:
+      - app-db:/data/db
+
+  # Create application service
+  # Using same configuration on .env
+  # Untuk menghindari miss konfigurasi
+  item-app:
+    image: ${GITHUB_REGISTRY}/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}:${IMAGE_TAG}
+    # Set network alias to communicate between service/container
+    networks:
+      default:
+        aliases:
+          - item-app
+    # Expose port
+    ports:
+      - 8080:8080
+    # Will restart if container failure
+    restart: on-failure
+    # Service tergantung pada service item-db
+    depends_on: 
+      - item-db
+
+volumes:
+  app-db:

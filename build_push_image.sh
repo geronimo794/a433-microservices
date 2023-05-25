@@ -3,8 +3,14 @@
 # Show all command and variable value
 set -x
 
-# Include env.sh file to get all variable value
-source ./env.sh
+# Load .env file
+set -o allexport
+if [ ! -f .env ]; then
+	source format.env
+else
+	source .env
+fi
+set +o allexport
 
 # Hide all command and variable value again
 set +x
