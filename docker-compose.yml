@@ -3,16 +3,16 @@ version: '3'
 services:
   # Creeate database server
   item-db:
-    # Use mongo 3
+    # Use mongo 3 as image of container
     image: mongo:3
-    # Restart container when failure
+    # Restart container when failure to start or run
     restart: on-failure
     # Set network alias to communicate
     networks:
       default:
         aliases:
           - item-db
-    # Set persistent volume
+    # Set persistent volume of mongodb
     volumes:
       - app-db:/data/db
       - app-db:/data/configdb
@@ -27,14 +27,15 @@ services:
       default:
         aliases:
           - item-app
-    # Expose port
+    # Expose port to machine
     ports:
       - 80:8080
-    # Will restart if container failure
+    # Will restart if container failure to start or run
     restart: on-failure
     # Service tergantung pada service item-db
     depends_on: 
       - item-db
 
+# Define volume to use on this service
 volumes:
   app-db:

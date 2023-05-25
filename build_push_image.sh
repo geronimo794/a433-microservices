@@ -3,8 +3,9 @@
 # Show all command and variable value
 set -x
 
-# Load .env file
+# Load configuration from .env file
 set -o allexport
+# If .env not exist then use format.env
 if [ ! -f .env ]; then
 	source format.env
 else
@@ -16,6 +17,7 @@ set +o allexport
 set +x
 
 # Build image from Docker file with name "item-app" and tag "v1"
+# You can see it from .env configuration
 docker build --pull --rm -f "Dockerfile" -t $IMAGE_REPO_NAME:$IMAGE_TAG "."
 
 # Show all list of docker iamge
@@ -28,6 +30,7 @@ FULL_NEW_IMAGE_NAME=$GITHUB_REGISTRY/$GITHUB_USERNAME/$IMAGE_REPO_NAME:$IMAGE_TA
 docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $FULL_NEW_IMAGE_NAME
 
 # Login with saved Personal Access Token and Github Username
+# You can configure it via .env file
 echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
 
 # Push the image to github registry
