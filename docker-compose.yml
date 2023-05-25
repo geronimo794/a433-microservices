@@ -15,6 +15,7 @@ services:
     # Set persistent volume
     volumes:
       - app-db:/data/db
+      - app-db:/data/configdb
 
   # Create application service
   # Using same configuration on .env
@@ -28,7 +29,7 @@ services:
           - item-app
     # Expose port
     ports:
-      - 8080:8080
+      - 80:8080
     # Will restart if container failure
     restart: on-failure
     # Service tergantung pada service item-db
