@@ -13,7 +13,7 @@ set +x
 docker build --pull --rm -f "Dockerfile" -t $IMAGE_REPO_NAME:$IMAGE_TAG "."
 
 # Show all list of docker iamge
-docker images ls
+docker image ls
 
 # Define full new image name, with registry, namespace, repo
 FULL_NEW_IMAGE_NAME=$GITHUB_REGISTRY/$GITHUB_USERNAME/$IMAGE_REPO_NAME:$IMAGE_TAG
