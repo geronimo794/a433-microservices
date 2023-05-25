@@ -1,2 +1,11 @@
 # Ignore node_modules directory
 src/node_modules
+
+# Ignore build command and configuration too
+# Variable file
+format.env.sh
+env.sh
+# Build command
+build_push_image.sh
+# The main dockerfile
+Dockerfile
