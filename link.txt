@@ -1,0 +1,2 @@
+Github Repository: https://github.com/geronimo794/a433-microservices/tree/proyek-pertama
+Github Container Registry: https://github.com/users/geronimo794/packages/container/package/item-app
