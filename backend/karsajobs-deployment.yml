@@ -2,9 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
+  namespace: karsa
   labels:
     app: go-backend-service
     tier: backend
+
 spec:
   replicas: 1
   selector:
@@ -17,8 +19,8 @@ spec:
         tier: data
     spec:
       containers:
-      - name: redis
-        image: redis:latest
+      - name: karsajobs
+        image: ghcr.io/geronimo794/karsajobs:latest
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 6379
