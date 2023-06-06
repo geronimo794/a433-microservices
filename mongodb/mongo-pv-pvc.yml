@@ -9,7 +9,7 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: /data/mongo
+    path: /Users/achrozikin/Documents/k8s.volume
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

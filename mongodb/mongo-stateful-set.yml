@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb-stateful-set
+  namespace: karsa
   labels:
     app: mongodb
-    namespace: karsa
 spec:
   selector:
     matchLabels:
@@ -21,8 +21,8 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - image: mongo:6.0.6
-        name: mysql
+      - name: mysql
+        image: mongo:6.0.6
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           valueFrom:
@@ -35,12 +35,17 @@ spec:
               name: mongo-secret
               key: password
         ports:
-        - containerPort: 8081
-          name: mongo
+        - name: mongo-default-port
+          containerPort: 8081
         volumeMounts:
-        - name: mongo-persistent-storage
-          mountPath: /var/lib/mysql
+        - name: mongo-pv-data
+          mountPath: /data/db
+        - name: mongo-pv-configdb
+          mountPath: /data/configdb
       volumes:
-      - name: mongo-persistent-storage
+      - name: mongo-pv-data
+        persistentVolumeClaim:
+          claimName: mongo-pvc
+      - name: mongo-pv-configdb
         persistentVolumeClaim:
           claimName: mongo-pvc
