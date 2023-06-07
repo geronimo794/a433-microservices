@@ -27,10 +27,9 @@ kubectl apply -f mongo-service.yml
 sleep 10
 kubectl apply -f mongo-stateful-set.yml
 
-# # Show pods
-
-# # Debuging commands
-# # kubectl describe
-# # kubectl get events
-# # kubectl logs -f
-# # kubectl exec
+# Debuging commands
+# kubectl describe
+# kubectl get events
+# kubectl logs -f
+# kubectl exec
+# kubectl get pods
