@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongodb-stateful-set
+  name: mongo-sfs
   namespace: karsa
   labels:
     app: mongodb
@@ -44,9 +44,6 @@ spec:
         volumeMounts:
         - name: mongo-pv-data
           mountPath: /data/db
-        # - name: mongo-pv-configdb
-        #   mountPath: /data/configdb
-
         - name: mongo-config-data
           mountPath: /etc/mongo
 
@@ -54,10 +51,6 @@ spec:
       - name: mongo-pv-data
         persistentVolumeClaim:
           claimName: mongo-pvc
-      # - name: mongo-pv-configdb
-      #   persistentVolumeClaim:
-      #     claimName: mongo-pvc
-
       - name: mongo-config-data
         configMap:
           name: mongo-config-map

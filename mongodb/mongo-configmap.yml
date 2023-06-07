@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mongo-config-map
+  name: mongo-cm
   namespace: karsa
   labels:
     app: mongodb
