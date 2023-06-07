@@ -21,7 +21,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - name: mysql
+      - name: mongo
         image: mongo:6.0.6
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
@@ -35,17 +35,17 @@ spec:
               name: mongo-secret
               key: password
         ports:
-        - name: mongo-default-port
-          containerPort: 8081
+        - name: mongo
+          containerPort: 27017
         volumeMounts:
         - name: mongo-pv-data
           mountPath: /data/db
-        - name: mongo-pv-configdb
-          mountPath: /data/configdb
+          # - name: mongo-pv-configdb
+          #   mountPath: /data/configdb
       volumes:
       - name: mongo-pv-data
         persistentVolumeClaim:
           claimName: mongo-pvc
-      - name: mongo-pv-configdb
-        persistentVolumeClaim:
-          claimName: mongo-pvc
+      # - name: mongo-pv-configdb
+      #   persistentVolumeClaim:
+      #     claimName: mongo-pvc

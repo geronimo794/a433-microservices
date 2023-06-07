@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mongo-pv
-  namespace: karsa
+  # namespace: karsa (PC Cannot use namespace)
 spec:
   accessModes:
   - ReadWriteOnce
@@ -19,6 +19,8 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
+  storageClassName: ""
+  volumeName: mongo-pv
   resources:
     requests:
       storage: 1Gi

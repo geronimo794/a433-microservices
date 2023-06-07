@@ -10,6 +10,12 @@ kubectl apply -f mongo-pv-pvc.yml
 kubectl apply -f mongo-service.yml
 
 # Install Statefultset
-kubectl apply -f mongo-statefulset.yml
+kubectl apply -f mongo-stateful-set.yml
 
 # Show pods
+
+# Debuging commands
+# kubectl describe
+# kubectl get events
+# kubectl logs -f
+# kubectl exec

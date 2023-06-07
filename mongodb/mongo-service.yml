@@ -7,10 +7,8 @@ metadata:
     app: mongodb
 spec:
   ports:
-  - port: 8000
-    targetPort: 8081
-    protocol: TCP
+  - port: 27017
   selector:
     app: mongodb
     tier: backend
-  type: ClusterIP
+  type: NodePort
