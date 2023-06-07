@@ -29,4 +29,4 @@ spec:
           - containerPort: 8000
         env:
         - name: VUE_APP_BACKEND
-          value: http://127.0.0.1:31000
+          value: http://127.0.0.1:31002

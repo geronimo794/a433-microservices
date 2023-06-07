@@ -46,10 +46,10 @@ spec:
         secret:
           secretName: mongo-secret
           items:
-          - key: MONGO_ROOT_USERNAME
-            path: username
-          - key: MONGO_ROOT_PASSWORD
-            path: password
+          - key: username
+            path: MONGO_ROOT_USERNAME
+          - key: password
+            path: MONGO_ROOT_PASSWORD
 
       - name: mongo-pv-data
         persistentVolumeClaim:

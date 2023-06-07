@@ -11,7 +11,7 @@ spec:
   type: NodePort
   ports:
   - port: 8080
-    nodePort: 31000
+    nodePort: 31002
     protocol: TCP
   selector:
     app: go
