@@ -1,0 +1,20 @@
+# CircleCI configuration file
+version: 2.1
+
+jobs:
+  # Job one with a unique name
+  lint-dockerfile:
+    docker:
+      - image: circleci/python:3.8.10-node
+    steps:
+      # Check out the code from the repository
+      - checkout
+      # Lint the Dockerfile
+      - run: hadolint Dockerfile
+
+workflows:
+  # Name of workflow
+  hello_and_goodbye:
+    # List of jobs that will run
+    jobs:
+      - lint-dockerfile
