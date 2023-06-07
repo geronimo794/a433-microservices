@@ -18,7 +18,7 @@ jobs:
       - checkout
       - run:
           name: Docker Login
-          command: 'echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin'
+          command: echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
       # - run:
       #     name: Docker Build
       #     command: 'docker build --pull --rm -f "Dockerfile" -t $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG .'
