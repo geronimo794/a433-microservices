@@ -22,22 +22,12 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: mongo
-        image: mongo:6.0.6
-        lifecycle:
-            postStart:
-              exec:
-                command: ["/bin/sh", "-c", {{mongod --config /etc/mongo/mongod.conf}}]
+        image: mongo:4.0.8
         env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: mongo-cm
-              key: username
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mongo-secret
-              key: password
+        - name: MONGO_INITDB_ROOT_USERNAME_FILE
+          value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+          value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
         ports:
         - name: mongo
           containerPort: 27017
@@ -45,9 +35,22 @@ spec:
         - name: mongo-pv-data
           mountPath: /data/db
         - name: mongo-config-data
-          mountPath: /etc/mongo
+          mountPath: /config
+          readOnly: true
+        - name: mongo-credentials
+          mountPath: /etc/mongo-credentials
+          readOnly: true
 
       volumes:
+      - name: mongo-credentials
+        secret:
+          secretName: mongo-secret
+          items:
+          - key: MONGO_ROOT_USERNAME
+            path: username
+          - key: MONGO_ROOT_PASSWORD
+            path: password
+
       - name: mongo-pv-data
         persistentVolumeClaim:
           claimName: mongo-pvc

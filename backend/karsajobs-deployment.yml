@@ -34,8 +34,8 @@ spec:
           value: $(MONGO_SERVICE_SERVICE_HOST)
         - name: MONGO_USER
           valueFrom:
-            configMapKeyRef:
-              name: mongo-cm
+            secretKeyRef:
+              name: mongo-secret
               key: username
         - name: MONGO_PASS
           valueFrom:

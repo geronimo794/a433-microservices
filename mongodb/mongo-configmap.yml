@@ -6,7 +6,6 @@ metadata:
   labels:
     app: mongodb
 data:
-  username: mongouser
   mongod.conf: |
     security:
       authorization: enabled
