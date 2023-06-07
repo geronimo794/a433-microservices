@@ -28,5 +28,6 @@ sleep 5
 # kubectl delete PersistentVolume mongo-pv -n karsa
 # sleep 5
 
-
+# DELETE NAME SPACE
+kubectl delete ns karsa
 
