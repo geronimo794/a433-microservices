@@ -33,7 +33,13 @@ spec:
         - name: MONGO_HOST
           value: $(MONGO_SERVICE_SERVICE_HOST)
         - name: MONGO_USER
-          value: $(MONGO_INITDB_ROOT_USERNAME)
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-cm
+              key: username
         - name: MONGO_PASS
-          value: $(MONGO_INITDB_ROOT_PASSWORD)
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: password
 

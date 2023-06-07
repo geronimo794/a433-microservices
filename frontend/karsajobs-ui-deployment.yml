@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: karsa
+  labels:
+    app: vue
+    tier: frontend
+
+spec:
+  selector:
+    matchLabels:
+      app: vue
+      tier: frontend
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: vue
+        tier: frontend
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: karsajobs-ui
+        image: ghcr.io/geronimo794/karsajobs-ui:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8000
+        env:
+        - name: VUE_APP_BACKEND
+          value: http://$(BACKEND_SERVICE_SERVICE_HOST):$(BACKEND_SERVICE_SERVICE_PORT)
