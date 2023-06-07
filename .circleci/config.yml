@@ -20,13 +20,20 @@ jobs:
       - run:
           name: Docker Login
           command: 'echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin'
-      - docker/build:
-          image: $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
-      - docker/push:
-          image: $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
       - run:
-          command: |
-            echo "Digest is: $(</tmp/digest.txt)"
+          name: Docker Build
+          command: 'docker build --pull --rm -f "Dockerfile" -t $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG "."'
+      - run:
+          name: Docker Push
+          command: 'docker push $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG "."'
+
+      # - docker/build:
+      #     image: $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
+      # - docker/push:
+      #     image: $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
+      # - run:
+      #     command: |
+      #       echo "Digest is: $(</tmp/digest.txt)"
 
 workflows:
   lint-dockerfile:
