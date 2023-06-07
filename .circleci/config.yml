@@ -13,7 +13,7 @@ jobs:
           command: go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
-      - image: circleci/docker@2.2.0
+      - image: circleci/python:3.9.10-node
     steps:
       - checkout
       - run:
