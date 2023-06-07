@@ -4,13 +4,14 @@ metadata:
   name: backend-service
   namespace: karsa
   labels:
-    app: go-backend-service
+    app: go
+    tier: backend
 
 spec:
   ports:
   - port: 8080
-    targetPort: 8080
     protocol: TCP
   selector:
+    app: go
     tier: backend
   type: ClusterIP

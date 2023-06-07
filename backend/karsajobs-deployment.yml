@@ -4,23 +4,36 @@ metadata:
   name: backend-deployment
   namespace: karsa
   labels:
-    app: go-backend-service
+    app: go
     tier: backend
 
 spec:
-  replicas: 1
   selector:
     matchLabels:
+      app: go
       tier: backend
+  replicas: 1
+  minReadySeconds: 10
   template:
     metadata:
       labels:
-        app: microservices
-        tier: data
+        app: go
+        tier: backend
     spec:
+      terminationGracePeriodSeconds: 10
       containers:
       - name: karsajobs
         image: ghcr.io/geronimo794/karsajobs:latest
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
+        env:
+        - name: APP_PORT
+          value: 8080
+        - name: MONGO_HOST
+          value: $(MONGO_SERVICE_SERVICE_HOST)
+        - name: MONGO_USER
+          value: $(MONGO_INITDB_ROOT_USERNAME)
+        - name: MONGO_PASS
+          value: $(MONGO_INITDB_ROOT_PASSWORD)
+
