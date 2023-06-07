@@ -2,6 +2,16 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.2.0
 
+jobs:
+  test-app:
+    docker:
+      - image: cimg/go:1.15.10
+    steps:
+      - checkout
+      - run:
+          name: Melakukan testing
+          command: go test -v -short --count=1 $(go list ./...)
+
 workflows:
   lint-dockerfile:
     jobs:
@@ -11,3 +21,6 @@ workflows:
           hadolint-tag: 2.2.0-debian
           ignore-rules: DL4005,DL3008
           trusted-registries: docker.io,ghcr.io
+  test-app:
+    jobs:
+      - test-app
