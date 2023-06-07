@@ -17,6 +17,9 @@ jobs:
       - setup_remote_docker
       - checkout
       - docker/check
+      - run:
+          name: Docker Login
+          command: 'echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin'
       - docker/build:
           image: $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
       - docker/push:
