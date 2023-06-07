@@ -5,16 +5,18 @@ jobs:
   # Job one with a unique name
   lint-dockerfile:
     docker:
-      - image: circleci/python:3.8.10-node
+      - image: circleci/docker@x.y.z
     steps:
-      # Check out the code from the repository
-      - checkout
-      # Lint the Dockerfile
-      - run: hadolint Dockerfile
+      - docker/hadolint:
+          dockerfiles: Dockerfile
+          executor-class: medium
+          hadolint-tag: 2.2.0-debian
+          ignore-rules: DL4005,DL3008
+          trusted-registries: docker.io,my-company.com:5000
 
 workflows:
   # Name of workflow
-  hello_and_goodbye:
+  build_backend:
     # List of jobs that will run
     jobs:
       - lint-dockerfile
