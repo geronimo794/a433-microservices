@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongo-sfs
+  name: mongo-ss
   namespace: karsa
   labels:
     app: mongodb
@@ -53,7 +53,7 @@ spec:
           claimName: mongo-pvc
       - name: mongo-config-data
         configMap:
-          name: mongo-config-map
+          name: mongo-cm
           items:
           - key: mongod.conf
             path: mongod.conf

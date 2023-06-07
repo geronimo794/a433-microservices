@@ -1,9 +1,9 @@
 #/bin/bash
 
 # Clear all apply
-kubectl delete StatefulSet mongodb-stateful-set -n karsa
-kubectl delete ConfigMap mongo-config-map -n karsa
-kubectl delete Service mongodb-service -n karsa
+kubectl delete StatefulSet mongo-ss -n karsa
+kubectl delete ConfigMap mongo-cm -n karsa
+kubectl delete Service mongo-service -n karsa
 kubectl delete Secret mongo-secret -n karsa
 kubectl delete PersistentVolumeClaim mongo-pvc -n karsa
 kubectl delete PersistentVolume mongo-pv -n karsa
