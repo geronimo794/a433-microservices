@@ -8,10 +8,11 @@ metadata:
     tier: backend
 
 spec:
+  type: NodePort
   ports:
   - port: 8080
+    nodePort: 31000
     protocol: TCP
   selector:
     app: go
     tier: backend
-  type: NodePort

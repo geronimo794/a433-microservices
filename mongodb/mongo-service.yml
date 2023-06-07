@@ -8,6 +8,7 @@ metadata:
 spec:
   ports:
   - port: 27017
+    nodePort: 33000
   selector:
     app: mongodb
     tier: backend

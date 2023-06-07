@@ -23,10 +23,10 @@ spec:
       containers:
       - name: mongo
         image: mongo:6.0.6
-        # command:
-        # - mongod
-        # - --config
-        # - /etc/mongo/mongod.conf
+        lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", {{mongod --config /etc/mongo/mongod.conf}}]
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           valueFrom:
