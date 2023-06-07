@@ -12,11 +12,10 @@ jobs:
           name: Melakukan testing
           command: go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
-    executor: docker/docker
+    docker:
+      - image: circleci/docker@2.2.0
     steps:
-      - setup_remote_docker
       - checkout
-      - docker/check
       - run:
           name: Docker Login
           command: 'echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin'
