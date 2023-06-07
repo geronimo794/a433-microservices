@@ -29,5 +29,5 @@ sleep 5
 # sleep 5
 
 # DELETE NAME SPACE
-kubectl delete ns karsa
+# kubectl delete ns karsa
 

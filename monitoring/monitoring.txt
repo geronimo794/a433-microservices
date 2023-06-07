@@ -1,0 +1,34 @@
+NAME                                                         READY   STATUS    RESTARTS   AGE
+pod/alertmanager-stable-kube-prometheus-sta-alertmanager-0   2/2     Running   0          13m
+pod/prometheus-stable-kube-prometheus-sta-prometheus-0       2/2     Running   0          13m
+pod/stable-grafana-c6f4885f5-bk5p4                           3/3     Running   0          13m
+pod/stable-kube-prometheus-sta-operator-69765695cb-5gldz     1/1     Running   0          13m
+pod/stable-kube-state-metrics-5bfb9cd767-2tc22               1/1     Running   0          13m
+pod/stable-prometheus-node-exporter-bfrzs                    1/1     Running   0          13m
+
+NAME                                              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+service/alertmanager-operated                     ClusterIP   None             <none>        9093/TCP,9094/TCP,9094/UDP   13m
+service/prometheus-operated                       ClusterIP   None             <none>        9090/TCP                     13m
+service/stable-grafana                            NodePort    10.102.74.200    <none>        80:31200/TCP                 13m
+service/stable-kube-prometheus-sta-alertmanager   ClusterIP   10.110.102.205   <none>        9093/TCP                     13m
+service/stable-kube-prometheus-sta-operator       ClusterIP   10.109.173.244   <none>        443/TCP                      13m
+service/stable-kube-prometheus-sta-prometheus     NodePort    10.99.35.100     <none>        9090:31100/TCP               13m
+service/stable-kube-state-metrics                 ClusterIP   10.96.254.50     <none>        8080/TCP                     13m
+service/stable-prometheus-node-exporter           ClusterIP   10.99.48.16      <none>        9100/TCP                     13m
+
+NAME                                             DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/stable-prometheus-node-exporter   1         1         1       1            1           <none>          13m
+
+NAME                                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/stable-grafana                        1/1     1            1           13m
+deployment.apps/stable-kube-prometheus-sta-operator   1/1     1            1           13m
+deployment.apps/stable-kube-state-metrics             1/1     1            1           13m
+
+NAME                                                             DESIRED   CURRENT   READY   AGE
+replicaset.apps/stable-grafana-c6f4885f5                         1         1         1       13m
+replicaset.apps/stable-kube-prometheus-sta-operator-69765695cb   1         1         1       13m
+replicaset.apps/stable-kube-state-metrics-5bfb9cd767             1         1         1       13m
+
+NAME                                                                    READY   AGE
+statefulset.apps/alertmanager-stable-kube-prometheus-sta-alertmanager   1/1     13m
+statefulset.apps/prometheus-stable-kube-prometheus-sta-prometheus       1/1     13m
