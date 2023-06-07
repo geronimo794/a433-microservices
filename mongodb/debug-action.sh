@@ -18,22 +18,14 @@ kubectl get PersistentVolume -n karsa
 
 # Apply content
 kubectl apply -f mongo-pv-pvc.yml
+sleep 10
 kubectl apply -f mongo-secret.yml
+sleep 10
 kubectl apply -f mongo-configmap.yml
+sleep 10
 kubectl apply -f mongo-service.yml
+sleep 10
 kubectl apply -f mongo-stateful-set.yml
-
-# kubectl apply -f mongo-configmap.yml
-# kubectl apply -f mongo-stateful-set.yml
-
-# # Install PV and PVC
-# kubectl apply -f mongo-pv-pvc.yml
-
-# # Install Service
-# kubectl apply -f mongo-service.yml
-
-# # Install Statefultset
-# kubectl apply -f mongo-stateful-set.yml
 
 # # Show pods
 
