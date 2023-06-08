@@ -20,7 +20,7 @@ jobs:
           version: 20.10.14
           # docker_layer_caching: true
       - run: |
-          # Build image from Docker file with var $KARSA_JOB_BE_REPO_NAME and tag $KARSA_JOB_TAG
+          # Build image from Docker file with var ${KARSA_JOB_BE_REPO_NAME} and tag ${KARSA_JOB_TAG}
           # You can see it from .env configuration
           docker build --pull --rm -f "Dockerfile" -t ${KARSA_JOB_BE_REPO_NAME}:${KARSA_JOB_TAG} "."
 
