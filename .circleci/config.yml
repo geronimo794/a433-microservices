@@ -23,8 +23,8 @@ jobs:
           docker build --pull --rm -f "Dockerfile" -t $KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG "."
           FULL_NEW_IMAGE_NAME=gchr.io/geronimo794/karsajobs:latest
           docker tag $KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG $FULL_NEW_IMAGE_NAME
-          echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
-          docker push $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
+          # echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
+          # docker push $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
 
 
       # - run:
