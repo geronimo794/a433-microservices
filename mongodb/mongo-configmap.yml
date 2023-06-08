@@ -1,13 +1,23 @@
+# Versi dari API untuk konfigurasi
 apiVersion: v1
+# Jenis dari konfigurasi: ConfigMap
 kind: ConfigMap
+# Informasi mengenai konfigurasi
 metadata:
   name: mongo-cm
+  # Menggunakan namespace karsa agar lebih mudah untuk debugging
   namespace: karsa
+  # Identifier atau pelabelan saja
   labels:
     app: mongodb
+
+# Data yang disimpan pada configmap
+# yang nantinya bisa dibinding deployment
 data:
   mongod.conf: |
     security:
       authorization: enabled
     net:
       bindIp: 0.0.0.0
+    storage:
+      dbPath: /data/db

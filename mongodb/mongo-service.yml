@@ -1,15 +1,27 @@
+# Versi dari API untuk konfigurasi
 apiVersion: v1
+# Jenis dari konfigurasi: Service
 kind: Service
+# Informasi mengenai konfigurasi
 metadata:
   name: mongo-service
+  # Menggunakan namespace karsa agar lebih mudah untuk debugging
   namespace: karsa
   labels:
     app: mongodb
+
+# Detail spesifikasi API
 spec:
+  # Jenis NodePort artinya nanti service dapat diakses
+  # melalui NodeIp kemudian NodePort yang kita atur atau diberikan
+  type: NodePort
   ports:
+  # Internal port dari deployment
   - port: 27017
+    # Eksternal port yang dapat diakses oleh Node
     nodePort: 31001
+  # Selector digunakan untuk identifier guna menghubungkan deployment
+  # Selector yang ada di service, harus sama dengan yang ada di deployment
   selector:
     app: mongodb
     tier: backend
-  type: NodePort

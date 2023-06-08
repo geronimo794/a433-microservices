@@ -1,30 +1,54 @@
+# Versi dari API untuk konfigurasi
 apiVersion: v1
+# Jenis dari konfigurasi: PersistentVolume
 kind: PersistentVolume
+# Informasi mengenai konfigurasi
 metadata:
   name: mongo-pv
+  # Identifier atau pelabelan saja
   labels:
     app: mongodb
   # namespace: karsa (PC Cannot use namespace)
+
+# Detail spesifikasi API
 spec:
+  # Mode access dari PV
+  # Artinya dapat ditulis dan dibaca
   accessModes:
   - ReadWriteOnce
+  # Kapasitas yang diberikan PV
   capacity:
     storage: 1Gi
+  # Local path dari persisten volume
   hostPath:
     path: /Users/achrozikin/Documents/k8s.volume/mongodb
+
+# Untuk memisahkan konfigurasi lainnya
 ---
+# Versi dari API untuk konfigurasi
 apiVersion: v1
+# Jenis dari konfigurasi: PersistentVolumeClaim
 kind: PersistentVolumeClaim
 metadata:
   name: mongo-pvc
+  # Menggunakan namespace karsa agar lebih mudah untuk debugging
   namespace: karsa
+  # Identifier atau pelabelan saja
   labels:
     app: mongodb
+
+# Detail spesifikasi API
 spec:
+  # Mode access dari PVC
+  # Artinya dapat ditulis dan dibaca
   accessModes:
   - ReadWriteOnce
+  # Nama storage class
+  # Kosong artinya default
   storageClassName: ""
+  # Nama dari PV yang akan di claim
   volumeName: mongo-pv
+  # Informasi resource yang akan digunakan
   resources:
     requests:
       storage: 1Gi
