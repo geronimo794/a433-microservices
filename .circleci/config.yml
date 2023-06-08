@@ -1,24 +1,36 @@
 version: 2.1
+# Adalah shareable package yang dapat digunakan oleh semua jobs
 orbs:
   docker: circleci/docker@2.2.0
 
+# Definisi dari tiap job yang akan dipanggil nanti
 jobs:
+  # Job yang digunakan untuk melakukan pengetesan aplikasi GO
   test-app:
+    # Docker image yang akan digunakan
     docker:
       - image: cimg/go:1.15.10
+    # Langkah langkah pengetesan
     steps:
       - checkout
+      # Melakukan pengetesan
       - run:
           name: Melakukan testing
           command: go test -v -short --count=1 $(go list ./...)
+  
+  # Job yang digunakan untuk build dan push karsa job
   build-app-karsajobs:
+    # Docker image yang akan digunakan
     docker:
       - image: cimg/go:1.17
+    # Langkah untuk build
     steps:
       - checkout
+      # Versi remote docker yang digunakan
       - setup_remote_docker:
           version: 20.10.14
-          # docker_layer_caching: true
+      # Menjalan perintah build dan push docker image
+      # Menggunakan variable yang telah diinject pada project
       - run: |
           # Build image from Docker file with var ${KARSA_JOB_BE_REPO_NAME} and tag ${KARSA_JOB_TAG}
           # You can see it from .env configuration
@@ -40,37 +52,23 @@ jobs:
           # Push the image to github registry
           docker push $FULL_NEW_IMAGE_NAME
 
-
-      # - run:
-      #     name: Docker Login
-      #     command: echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
-      # - run:
-      #     name: Docker Build
-      #     command: 'docker build --pull --rm -f "Dockerfile" -t $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG .'
-      # - run:
-      #     name: Docker Push
-      #     command: 'docker push $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG .'
-
-      # - docker/build:
-      #     image: $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
-      # - docker/push:
-      #     image: $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
-      # - run:
-      #     command: |
-      #       echo "Digest is: $(</tmp/digest.txt)"
-
+# Flow dari CI
 workflows:
+  # Pertama melakukan docker lint
   lint-dockerfile:
     jobs:
+      # Menggunakan hadolint
       - docker/hadolint:
           dockerfiles: Dockerfile
           executor-class: medium
           hadolint-tag: 2.2.0-debian
           ignore-rules: DL4005,DL3008
           trusted-registries: docker.io,ghcr.io
+  # Melakukan test-app
   test-app:
     jobs:
       - test-app
+  # Melakukan build applikasi
   build-app-karsajobs:
     jobs:
       - build-app-karsajobs
