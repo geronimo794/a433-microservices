@@ -21,7 +21,7 @@ jobs:
           # docker_layer_caching: true
       - run: |
           docker build --pull --rm -f "Dockerfile" -t gchr.io/geronimo794/karsajobs:latest .
-          echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
+          docker login ghcr.io --username geronimo794 -p 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
           docker push gchr.io/geronimo794/karsajobs:latest
 
 
