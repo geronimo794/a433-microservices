@@ -1,15 +1,22 @@
 version: 2.1
+# Adalah shareable package yang dapat digunakan oleh semua jobs
 orbs:
   docker: circleci/docker@2.2.0
 
+# Definisi dari tiap job yang akan dipanggil nanti
 jobs:
+  # Job yang digunakan untuk build dan push karsa job
   build-app-karsajobs-ui:
+    # Docker image yang akan digunakan
     docker:
       - image: cimg/go:1.17
     steps:
       - checkout
+      # Versi remote docker yang digunakan
       - setup_remote_docker:
           version: 20.10.14
+      # Menjalan perintah build dan push docker image
+      # Menggunakan variable yang telah diinject pada project
       - run: |
           # Build image from Docker file with var ${KARSA_JOB_FE_REPO_NAME} and tag ${KARSA_JOB_TAG}
           # You can see it from .env configuration
@@ -31,15 +38,19 @@ jobs:
           # Push the image to github registry
           docker push $FULL_NEW_IMAGE_NAME
 
+# Flow dari CI
 workflows:
+  # Pertama melakukan docker lint
   lint-dockerfile:
     jobs:
+      # Menggunakan hadolint
       - docker/hadolint:
           dockerfiles: Dockerfile
           executor-class: medium
           hadolint-tag: 2.2.0-debian
           ignore-rules: DL4005,DL3008
           trusted-registries: docker.io,ghcr.io
+  # Melakukan build applikasi
   build-app-karsajobs-ui:
     jobs:
       - build-app-karsajobs-ui
