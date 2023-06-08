@@ -1,16 +1,30 @@
+# Versi dari API untuk konfigurasi
 apiVersion: v1
+# Jenis dari konfigurasi: Service
 kind: Service
+# Informasi mengenai konfigurasi
 metadata:
   name: frontend-service
+  # Menggunakan namespace karsa agar lebih mudah untuk debugging
   namespace: karsa
+  # Identifier atau pelabelan saja
   labels:
     app: vue
     tier: frontend
+
+# Detail spesifikasi API
 spec:
+  # Jenis NodePort artinya nanti service dapat diakses
+  # melalui NodeIp kemudian NodePort yang kita atur atau diberikan
   type: NodePort
   ports:
+  # Internal port dari deployment
   - port: 8000
+    # Eksternal port yang dapat diakses oleh Node
+    # Applikasi dapat diakses melalui browser localhost:31000
     nodePort: 31000
+  # Selector digunakan untuk identifier guna menghubungkan deployment
+  # Selector yang ada di service, harus sama dengan yang ada di deployment
   selector:
     app: vue
     tier: frontend

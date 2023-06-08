@@ -19,7 +19,7 @@ sleep 10
 kubectl get Deployment -n karsa
 sleep 5
 
-# Membuat deployment
+# Membuat service agar deployment dapat diakses
 kubectl apply -f karsajobs-service.yml
 # Tunggu 10 detik minimal untuk menunggu kubernetes bekerja
 sleep 10
