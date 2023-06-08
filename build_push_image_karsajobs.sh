@@ -32,6 +32,6 @@ set +x
 # Login with saved Personal Access Token and Github Username
 # You can configure it via .env file
 echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
-
+# echo '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' | docker login ghcr.io --username geronimo794 --password-stdin
 # # Push the image to github registry
 # docker push $FULL_NEW_IMAGE_NAME
