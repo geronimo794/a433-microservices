@@ -1,18 +1,18 @@
 #/bin/bash
 
 # Installing namepace for grouping the resource
-kubectl apply -f karsa-namespace.yml
+# kubectl apply -f karsa-namespace.yml
 
 # Get created namespace list
-kubectl get namespace
+# kubectl get namespace
 
 
 # Install MongoDB
-# kubectl apply -f mongo-pv-pvc.yml
-# sleep 10
 cd mongodb
-kubectl apply -f mongo-secret.yml
+kubectl apply -f mongo-pv-pvc.yml
 sleep 10
+# kubectl apply -f mongo-secret.yml
+# sleep 10
 kubectl apply -f mongo-configmap.yml
 sleep 10
 kubectl apply -f mongo-service.yml
