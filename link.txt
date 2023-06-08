@@ -1,0 +1,2 @@
+GITHUB PACKAGE BACKEND: https://github.com/users/geronimo794/packages/container/package/karsajobs
+GITHUB PACKAGE FRONTEND: https://github.com/users/geronimo794/packages/container/package/karsajobs-ui
