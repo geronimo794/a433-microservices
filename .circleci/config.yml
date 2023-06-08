@@ -20,9 +20,25 @@ jobs:
           version: 20.10.14
           # docker_layer_caching: true
       - run: |
-          docker build --pull --rm -f "Dockerfile" -t gchr.io/geronimo794/karsajobs:latest .
-          echo "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" | docker login ghcr.io --username geronimo794 --password-stdin
-          docker push gchr.io/geronimo794/karsajobs:latest
+          # Build image from Docker file with var $KARSA_JOB_BE_REPO_NAME and tag $KARSA_JOB_TAG
+          # You can see it from .env configuration
+          docker build --pull --rm -f "Dockerfile" -t ${KARSA_JOB_BE_REPO_NAME}:${KARSA_JOB_TAG} "."
+
+          # Show all list of docker iamge
+          docker image ls
+
+          # Define full new image name, with registry, namespace, repo
+          FULL_NEW_IMAGE_NAME=${GITHUB_REGISTRY}/${GITHUB_USERNAME}/${KARSA_JOB_BE_REPO_NAME}:${KARSA_JOB_TAG}
+
+          # Rename previous image repo with new repo and tag
+          docker tag ${KARSA_JOB_BE_REPO_NAME}:${KARSA_JOB_TAG} $FULL_NEW_IMAGE_NAME
+
+          # Login with saved Personal Access Token and Github Username
+          # You can configure it via .env file
+          echo ${GITHUB_PAT} | docker login ghcr.io --username ${GITHUB_USERNAME} --password-stdin
+
+          # Push the image to github registry
+          docker push $FULL_NEW_IMAGE_NAME
 
 
       # - run:
