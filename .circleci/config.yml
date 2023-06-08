@@ -13,12 +13,21 @@ jobs:
           command: go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
-      - image: circleci/python:3.9.10-node
+      - image: cimg/go:1.17
     steps:
       - checkout
-      - run:
-          name: Docker Login
-          command: echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+      - run: |
+          docker build --pull --rm -f "Dockerfile"  -t $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG .
+          echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
+          docker push $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG
+
+
+      # - run:
+      #     name: Docker Login
+      #     command: echo $GITHUB_PAT | docker login ghcr.io --username $GITHUB_USERNAME --password-stdin
       # - run:
       #     name: Docker Build
       #     command: 'docker build --pull --rm -f "Dockerfile" -t $GITHUB_REGISTRY/$GITHUB_USERNAME/$KARSA_JOB_BE_REPO_NAME:$KARSA_JOB_TAG .'
