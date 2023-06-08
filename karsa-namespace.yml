@@ -1,6 +1,9 @@
 apiVersion: v1
+# Jenis konfigurasi: Namespace
 kind: Namespace
+# Metadata atau informasi mengenai konfigurasi
 metadata:
   name: karsa
+  # Label sebagai tambahan penanda saja
   labels:
     app: karsa

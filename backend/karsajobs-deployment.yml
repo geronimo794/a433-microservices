@@ -1,37 +1,60 @@
+# Versi dari API untuk konfigurasi
 apiVersion: apps/v1
+# Jenis dari konfigurasi: Deployment
 kind: Deployment
+# Informasi mengenai konfigurasi
 metadata:
   name: backend-deployment
+  # Menggunakan namespace karsa agar lebih mudah untuk debugging
   namespace: karsa
+  # Identifier atau pelabelan saja
   labels:
     app: go
     tier: backend
 
+# Detail spesifikasi API
 spec:
+  # Selector digunakan untuk identifier guna menghubungkan service
+  # Selector yang ada di Deployment, harus sama dengan yang ada di Service
   selector:
     matchLabels:
       app: go
       tier: backend
+  # Jumlah node yang akan di deploy
   replicas: 1
+  # Waktu tunggu minimal sebuah pod dianggap siap
+  # Jika tidak menggunakan ini, maka ketika pod jalan
+  # akan langsung dianggap jalan
   minReadySeconds: 10
+  # Konfigurasi pod yang akan digunakan
   template:
+    # Informasi tambahan mengenai template
     metadata:
       labels:
         app: go
         tier: backend
+    # Spesifikasi detail container yang akan digunakan
     spec:
+      # Waktu tunggu sebelum sebuah pod dihapus
       terminationGracePeriodSeconds: 10
+      # Informasi container
       containers:
+      # Menggunakan repository yang ada pada: ghcr.io/geronimo794/karsajobs
+      # Jika image belum ada, maka akan di pull terlebih dahulu
       - name: karsajobs
         image: ghcr.io/geronimo794/karsajobs:latest
         imagePullPolicy: IfNotPresent
+        # Identifieer port internal yang akan diekspos
         ports:
           - containerPort: 8080
+        # Environment variable yang akan di supply ke aplikasi
         env:
         - name: APP_PORT
           value: "8080"
+        # $(MONGO_SERVICE_SERVICE_HOST) adalah Shared Environment Variable dari MongoService
         - name: MONGO_HOST
           value: $(MONGO_SERVICE_SERVICE_HOST)
+        # Informasi user dan password diambil dari mongo-secret
         - name: MONGO_USER
           valueFrom:
             secretKeyRef:
