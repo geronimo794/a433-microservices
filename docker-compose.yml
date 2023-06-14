@@ -20,7 +20,7 @@ services:
       - "rabbitmq"
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- node index.js'
     ports:
-      - 3001:3001
+      - 3000:3000
     environment:
       NODE_ENV: production
       AMQP_URL: amqp://guest:guest@rabbitmq:5672
@@ -28,6 +28,7 @@ services:
       rabbitmq_network:
         aliases:
           - order
+
   shipping:
     image: ghcr.io/geronimo794/shipping-service:latest
     depends_on:
