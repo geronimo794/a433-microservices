@@ -10,11 +10,12 @@ services:
         - ./rabbitmq/data/:/var/lib/rabbitmq/
         - ./rabbitmq/log/:/var/log/rabbitmq
     networks:
-        - rabbitmq_network
-
+      rabbitmq_network:
+        aliases:
+          - rabbitmq
+  
   order:
     image: ghcr.io/geronimo794/order-service:latest
-
     depends_on:
       - "rabbitmq"
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- node index.js'
@@ -22,7 +23,21 @@ services:
       NODE_ENV: production
       AMQP_URL: amqp://guest:guest@rabbitmq:5672
     networks:
-      - rabbitmq_network
+      rabbitmq_network:
+        aliases:
+          - order
+  shipping:
+    image: ghcr.io/geronimo794/shipping-service:latest
+    depends_on:
+      - "rabbitmq"
+    command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- node index.js'
+    environment:
+      NODE_ENV: production
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+    networks:
+      rabbitmq_network:
+        aliases:
+          - shipping
 
 networks:
   rabbitmq_network:
