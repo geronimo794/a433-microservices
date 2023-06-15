@@ -19,6 +19,7 @@ services:
     depends_on:
       - "rabbitmq"
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=120 -- node index.js'
+    restart: on-failure
     ports:
       - 3000:3000
     environment:
@@ -34,6 +35,7 @@ services:
     depends_on:
       - "rabbitmq"
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=120 -- node index.js'
+    restart: on-failure
     ports:
       - 3001:3001
     environment:
