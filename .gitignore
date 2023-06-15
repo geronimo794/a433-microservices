@@ -1,2 +1,5 @@
 # Hide local env for development sh
 local.env
+
+# Ignore rabbit mq persistent data
+/rabbitmq/*
