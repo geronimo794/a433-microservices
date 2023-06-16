@@ -1,5 +1,9 @@
 # Hide local env for development sh
 local.env
 
-/rabbitmq/data/
-/rabbitmq/log/
+# RabbitMq
+/rabbitmq/data/*
+/rabbitmq/log/*
+
+# Kubernetes Istio
+/kubernetes/istio/istio-1.18.0/*
