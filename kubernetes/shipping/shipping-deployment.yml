@@ -1,0 +1,59 @@
+# Versi dari API untuk konfigurasi
+apiVersion: apps/v1
+# Jenis dari konfigurasi: Deployment
+kind: Deployment
+# Informasi mengenai konfigurasi
+metadata:
+  name: shipping-deployment
+  # Menggunakan namespace karsa agar lebih mudah untuk debugging
+  namespace: async
+  # Identifier atau pelabelan saja
+  labels:
+    app: shipping
+    type: service
+
+# Detail spesifikasi API
+spec:
+  # Selector digunakan untuk identifier guna menghubungkan service
+  # Selector yang ada di Deployment, harus sama dengan yang ada di Service
+  selector:
+    matchLabels:
+      app: shipping
+      type: service
+  # Jumlah node yang akan di deploy
+  replicas: 1
+  # Waktu tunggu minimal sebuah pod dianggap siap
+  # Jika tidak menggunakan ini, maka ketika pod jalan
+  # akan langsung dianggap jalan
+  minReadySeconds: 10
+  # Konfigurasi pod yang akan digunakan
+  template:
+    # Informasi tambahan mengenai template
+    metadata:
+      labels:
+        app: shipping
+        type: service
+    # Spesifikasi detail container yang akan digunakan
+    spec:
+      # Waktu tunggu sebelum sebuah pod dihapus
+      terminationGracePeriodSeconds: 10
+      # Informasi container
+      containers:
+      # Menggunakan repository yang ada pada: ghcr.io/geronimo794/karsajobs-ui
+      # Jika image belum ada, maka akan di pull terlebih dahulu
+      - name: shipping-service
+        image: ghcr.io/geronimo794/shipping-service:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh"]
+        args: ["-c", "/bin/wait-for-it.sh rabbitmq:5672 --timeout=120 -- node index.js"]
+        # Identifieer port internal yang akan diekspos
+        ports:
+        - containerPort: 3000
+        # Environment variable yang akan di supply ke aplikasi
+        # NodeIp: menggunakan loopback ip dari node.
+        # NodePort: menggunakan nodeport pada service backend karsajobs-service.yml.
+        env:
+        - name: AMQP_URL
+          value: "amqp://user:9iSvqNLFiZNvAzZW@rabbitmq:5672"
+        - name: PORT
+          value: "3000"
