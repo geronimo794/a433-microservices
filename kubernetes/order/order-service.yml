@@ -1,0 +1,30 @@
+# Versi dari API untuk konfigurasi
+apiVersion: v1
+# Jenis dari konfigurasi: Service
+kind: Service
+# Informasi mengenai konfigurasi
+metadata:
+  name: order-service
+  # Menggunakan namespace karsa agar lebih mudah untuk debugging
+  namespace: async
+  # Identifier atau pelabelan saja
+  labels:
+    app: order
+    type: service
+
+# Detail spesifikasi API
+spec:
+  # Jenis NodePort artinya nanti service dapat diakses
+  # melalui NodeIp kemudian NodePort yang kita atur atau diberikan
+  type: NodePort
+  ports:
+  # Internal port dari deployment
+  - port: 3000
+    # Eksternal port yang dapat diakses oleh Node
+    # Applikasi dapat diakses melalui browser localhost:31000
+    nodePort: 30200
+  # Selector digunakan untuk identifier guna menghubungkan deployment
+  # Selector yang ada di service, harus sama dengan yang ada di deployment
+  selector:
+    app: order
+    type: service
