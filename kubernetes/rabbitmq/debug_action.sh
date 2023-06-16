@@ -17,3 +17,6 @@ helm install rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq -n async
 # echo "Password      : $(kubectl get secret --namespace async rabbitmq -o jsonpath="{.data.rabbitmq-password}" | base64 -d)"
 # echo "ErLang Cookie : $(kubectl get secret --namespace async rabbitmq -o jsonpath="{.data.rabbitmq-erlang-cookie}" | base64 -d)"
 # Saved password: 9iSvqNLFiZNvAzZW
+
+# Edit applied configuration via vim cli
+# kubectl edit svc rabbitmq -n async
