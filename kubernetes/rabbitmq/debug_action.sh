@@ -6,12 +6,19 @@ set -e
 # Install PV and PVC
 kubectl apply -f rabbitmq-pv-pvc.yaml
 
+# Install secret for shared password
+kubectl apply -f rabbitmq-secret.yaml
+
 # Install rabbitmq
 helm install rabbitmq \
 	oci://registry-1.docker.io/bitnamicharts/rabbitmq \
 	-n async \
 	-f values.yaml \
 
+
+# Update service to create convention istio
+kubectl apply -f rabbitmq-headless-service.yaml
+kubectl apply -f rabbitmq-service.yaml
 
 # Uninstall rabbitmq
 # helm uninstall rabbitmq -n async
