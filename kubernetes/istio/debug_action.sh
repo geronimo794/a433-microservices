@@ -9,3 +9,6 @@ istioctl install --set profile=demo -y
 
 # Install export
 # export PATH="$PATH:/Users/achrozikin/Documents/development/dicoding/Belajar-Membangun-Arsitektur-Microservices/Proyek-Deploy-Aplikasi-Item-App-dengan-Docker-Compose/a433-microservices/kubernetes/istio/istio-1.18.0/bin"
+
+# Inject namespace for istion
+kubectl label namespace async istio-injection=enabled

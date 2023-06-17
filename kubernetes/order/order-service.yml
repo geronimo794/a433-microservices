@@ -16,13 +16,13 @@ metadata:
 spec:
   # Jenis NodePort artinya nanti service dapat diakses
   # melalui NodeIp kemudian NodePort yang kita atur atau diberikan
-  type: NodePort
+  # type: NodePort
   ports:
   # Internal port dari deployment
   - port: 3000
     # Eksternal port yang dapat diakses oleh Node
     # Applikasi dapat diakses melalui browser localhost:31000
-    nodePort: 30200
+    # nodePort: 30200
   # Selector digunakan untuk identifier guna menghubungkan deployment
   # Selector yang ada di service, harus sama dengan yang ada di deployment
   selector:
