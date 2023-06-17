@@ -20,7 +20,7 @@ spec:
   ports:
   # Internal port dari deployment
   - port: 3001
-    targetPort: 3000
+    targetPort: 3001
     appProtocol: http
 
     # Eksternal port yang dapat diakses oleh Node
