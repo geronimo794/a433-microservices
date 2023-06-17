@@ -1,0 +1,24 @@
+NAME                                       READY   STATUS    RESTARTS        AGE
+pod/order-deployment-78ccb5d6b5-szfgh      2/2     Running   8 (5m52s ago)   7h41m
+pod/rabbitmq-0                             2/2     Running   8 (5m52s ago)   8h
+pod/shipping-deployment-6fc985cf99-sj96c   2/2     Running   8 (5m52s ago)   7h37m
+
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                                 AGE
+service/order-service       ClusterIP   10.103.76.76    <none>        3000/TCP                                9h
+service/rabbitmq            ClusterIP   10.104.56.248   <none>        5672/TCP,4369/TCP,25672/TCP,15672/TCP   8h
+service/rabbitmq-headless   ClusterIP   None            <none>        4369/TCP,5672/TCP,25672/TCP,15672/TCP   8h
+service/shipping-service    ClusterIP   10.96.245.183   <none>        3001/TCP                                9h
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/order-deployment      1/1     1            1           9h
+deployment.apps/shipping-deployment   1/1     1            1           9h
+
+NAME                                             DESIRED   CURRENT   READY   AGE
+replicaset.apps/order-deployment-55687f95        0         0         0       7h50m
+replicaset.apps/order-deployment-5c9456b8c5      0         0         0       9h
+replicaset.apps/order-deployment-78ccb5d6b5      1         1         1       7h41m
+replicaset.apps/shipping-deployment-669fb7c8c5   0         0         0       9h
+replicaset.apps/shipping-deployment-6fc985cf99   1         1         1       7h37m
+
+NAME                        READY   AGE
+statefulset.apps/rabbitmq   1/1     8h
