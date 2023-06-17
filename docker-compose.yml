@@ -1,51 +1,80 @@
+# Version 3.2 of docker compose file
 version: "3.2"
+
+# Define all the service that will be populated
 services:
+
+  # 1. RabbitMQ Service
   rabbitmq:
+    # Get image with repo rabbitmq and version 3.8
     image: rabbitmq:3.8-management-alpine
+    # Define the name of the container
     container_name: 'rabbitmq_container'
+    # Define the port that will be exposed to external
     ports:
         - 5673:5672
         - 15673:15672
+    # Define volume binding to local dir
     volumes:
         - ./rabbitmq/data/:/var/lib/rabbitmq/
         - ./rabbitmq/log/:/var/log/rabbitmq
+    # Define network alias in rabbitmq_network
     networks:
       rabbitmq_network:
         aliases:
           - rabbitmq
-  
+  # 2. Order service
   order:
+    # Get from registry gchr.io
+    # Repository geronimo794/order-service
     image: ghcr.io/geronimo794/order-service:latest
+    # Depends on will run after container rabbitmq is runned
     depends_on:
       - "rabbitmq"
+    # After container is run, command will be executed with wait-for-it sh
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=120 -- node index.js'
+    # Restart policy if container fail to run
     restart: on-failure
+    # Port to expose
     ports:
       - 3000:3000
+    # Inject environment variable to the container
     environment:
       PORT: 3000
       AMQP_URL: amqp://guest:guest@rabbitmq:5672
+    # Define network alias inside rabbitmq_network
     networks:
       rabbitmq_network:
         aliases:
           - order
 
+  # 3. Shipping service
   shipping:
+    # Get from registry gchr.io
+    # Repository geronimo794/shipping-service
     image: ghcr.io/geronimo794/shipping-service:latest
+    # Depends on will run after container rabbitmq is runned
     depends_on:
       - "rabbitmq"
+    # After container is run, command will be executed with wait-for-it sh
     command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=120 -- node index.js'
+    # Restart policy if container fail to run
     restart: on-failure
+    # Port to expose
     ports:
       - 3001:3001
+    # Inject environment variable to the container
     environment:
       PORT: 3001
       AMQP_URL: amqp://guest:guest@rabbitmq:5672
+    # Define network alias inside rabbitmq_network
     networks:
       rabbitmq_network:
         aliases:
           - shipping
 
+# Define the network inside docker compose
+# And define the network type
 networks:
   rabbitmq_network:
     driver: bridge
