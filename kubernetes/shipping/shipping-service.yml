@@ -20,6 +20,9 @@ spec:
   ports:
   # Internal port dari deployment
   - port: 3001
+    targetPort: 3000
+    appProtocol: http
+
     # Eksternal port yang dapat diakses oleh Node
     # Applikasi dapat diakses melalui browser localhost:31000
     # nodePort: 30300

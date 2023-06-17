@@ -11,8 +11,8 @@ kubectl apply -f order/order-service.yml
 kubectl apply -f order/order-deployment.yml
 
 # Install shipping
-kubectl apply -f order/order-service.yml
-kubectl apply -f order/order-deployment.yml
+kubectl apply -f shipping/shipping-service.yml
+kubectl apply -f shipping/shipping-deployment.yml
 
 # Delete namespace
 # kubectl delete Namespace async
