@@ -1,3 +1,7 @@
 # Ignore or hide env file 
 .env
 local.env
+
+# Ignore kubernetes and rabbitmq 
+/kubernetes/*
+/rabbitmq/*
