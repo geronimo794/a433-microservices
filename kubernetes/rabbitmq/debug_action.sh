@@ -1,7 +1,17 @@
 #/bin/bash
 
+# If error stop
+set -e
+
+# Install PV and PVC
+kubectl apply -f rabbitmq-pv-pvc.yaml
+
 # Install rabbitmq
-helm install rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq -n async
+helm install rabbitmq \
+	oci://registry-1.docker.io/bitnamicharts/rabbitmq \
+	-n async \
+	-f values.yaml \
+
 
 # Uninstall rabbitmq
 # helm uninstall rabbitmq -n async
