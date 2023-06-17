@@ -1,19 +1,26 @@
-FROM node:18-alpine as base
-WORKDIR /src
-COPY package*.json ./
- 
-FROM base as production
-ENV NODE_ENV=production
-RUN npm ci
-COPY ./*.js ./
-CMD ["node", "index.js"]
- 
-FROM base as dev
+# Base node alphine image
+FROM node:18-alpine
+
+# Install bash to execute bash later
 RUN apk add --no-cache bash
+
+# Download wait-for-it script for waiting rabbitmq to up
 RUN wget -O /bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+
+# Add permission to execute for fil wait-for-it.sh
 RUN chmod +x /bin/wait-for-it.sh
- 
-ENV NODE_ENV=development
-RUN npm install
+
+# Set workdir to src
+WORKDIR /src
+
+# Copy package json to workdir
+COPY package*.json ./
+
+# Copy file with js extension to  workdir
 COPY ./*.js ./
-CMD ["node", "index.js"]
+ 
+#  Running npm install
+RUN npm install
+
+# Run node index.js to start container
+ENTRYPOINT ["node", "index.js"]
