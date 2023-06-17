@@ -16,9 +16,6 @@ metadata:
   name: rabbitmq
   namespace: async
 spec:
-  clusterIP: 10.108.54.191
-  clusterIPs:
-  - 10.108.54.191
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4
