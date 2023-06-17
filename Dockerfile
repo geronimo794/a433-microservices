@@ -23,4 +23,4 @@ COPY ./*.js ./
 RUN npm install
 
 # Run node index.js to start container
-ENTRYPOINT ["node", "index.js"]
+CMD ["node", "index.js"]
