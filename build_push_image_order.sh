@@ -18,6 +18,9 @@ set +o allexport
 # Hide all command and variable value again
 set +x
 
+# End operation when failed or exit status 0
+set -e
+
 # Build image from Docker file with var $ECOMMERCE_ORDER_REPO_NAME and tag latest
 # You can see it from .env configuration
 docker build --pull --rm -f "Dockerfile" -t $ECOMMERCE_ORDER_REPO_NAME:latest "."
