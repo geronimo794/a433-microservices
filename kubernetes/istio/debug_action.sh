@@ -30,4 +30,10 @@
 # echo "$GATEWAY_URL"
 
 
+# Install Gateway and Virtual Service
+kubectl apply -f rabbitmq-gateway.yml
+kubectl apply -f rabbitmq-virtual-service.yml
+istioctl analyze -n async
+
+
 

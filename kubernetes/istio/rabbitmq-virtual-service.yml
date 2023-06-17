@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: rabbitmq-virtual-service
+  namespace: async
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - rabbitmq-gateway
+  http:
+  - match:
+    - uri:
+        exact: /
+    route:
+    - destination:
+        host: rabbitmq
+        port:
+          number: 15672

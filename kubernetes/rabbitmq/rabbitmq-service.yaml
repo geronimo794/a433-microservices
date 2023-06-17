@@ -1,0 +1,56 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    meta.helm.sh/release-name: rabbitmq
+    meta.helm.sh/release-namespace: async
+  creationTimestamp: "2023-06-17T07:06:31Z"
+  labels:
+    app.kubernetes.io/instance: rabbitmq
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rabbitmq
+    helm.sh/chart: rabbitmq-12.0.1
+  name: rabbitmq
+  namespace: async
+  resourceVersion: "21150"
+  uid: bcc1392c-ff48-4bbc-9c00-c7d223137942
+spec:
+  clusterIP: 10.108.54.191
+  clusterIPs:
+  - 10.108.54.191
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: amqp
+    port: 5672
+    protocol: TCP
+    appProtocol: tcp
+    targetPort: amqp
+  - name: epmd
+    port: 4369
+    protocol: TCP
+    appProtocol: tcp
+    targetPort: epmd
+  - name: dist
+    port: 25672
+    protocol: TCP
+    appProtocol: tcp
+    targetPort: dist
+  - name: http-stats
+    port: 15672
+    protocol: TCP
+    appProtocol: tcp
+    targetPort: stats
+  selector:
+    app.kubernetes.io/instance: rabbitmq
+    app.kubernetes.io/name: rabbitmq
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

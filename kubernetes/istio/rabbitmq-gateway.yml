@@ -1,14 +1,14 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: order-gateway
+  name: rabbitmq-gateway
   namespace: async
 spec:
   selector:
     istio: ingressgateway # use istio default controller
   servers:
   - port:
-      number: 31400
+      number: 80
       name: http
       protocol: HTTP
     hosts:
