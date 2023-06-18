@@ -5,11 +5,12 @@ Untuk mempermudah penilaian, saya cantumkan informasi file beserta parameter pen
 	- Saya menggunakan fork repo yang telah disediakan: https://github.com/geronimo794/a433-microservices
 	- Untuk order service: https://github.com/geronimo794/a433-microservices/tree/order-service
 	- Untuk shipping service: https://github.com/geronimo794/a433-microservices/tree/shipping-service
-
 2. Kriteria 2: Mengunggah Container Image ke Docker Hub
 	- Saya mengunggah Container ke Github Package
-	- Untuk order service: https://github.com/users/geronimo794/packages/container/order-service/settings
-	- Untuk shipping service: https://github.com/users/geronimo794/packages/container/shipping-service/settings
+	- Untuk order service: https://github.com/users/geronimo794/packages/container/package/order-service
+	- Untuk shipping service: https://github.com/users/geronimo794/packages/container/package/shipping-service
+	- Untuk order Dockerfile: https://github.com/geronimo794/a433-microservices/blob/order-service/Dockerfile
+	- Untuk shipping Dockerfile: https://github.com/geronimo794/a433-microservices/blob/shipping-service/Dockerfile
 3. Kriteria 3: Deploy Aplikasi dengan Docker Compose
 	- Untuk file konfigurasi Docker Compose dapat dilihat pada: https://github.com/geronimo794/a433-microservices/blob/deployment-asynchronous/docker-compose.yml
 
@@ -17,8 +18,8 @@ Penilaian:
 1. Penjelasan dalam bentuk komentar
 	- Sudah saya berikan komentar pada tiap file yml, file Dockerfile, dan bebberapa komentar pada script instalasi
 2. GitHub Packages
-	- Untuk order service: https://github.com/users/geronimo794/packages/container/order-service/settings
-	- Untuk shipping service: https://github.com/users/geronimo794/packages/container/shipping-service/settings
+	- Untuk order service: https://github.com/users/geronimo794/packages/container/package/order-service
+	- Untuk shipping service: https://github.com/users/geronimo794/packages/container/package/shipping-service
 3. Deploy aplikasi E-Commerce App menggunakan Kubernetes.
 	- File manifest yaml dapat dilihat pada https://github.com/geronimo794/a433-microservices/tree/deployment-asynchronous/kubernetes
 	- Untuk mempermudah proses juga saya sediakan script install.sh untuk flow proses deployment aplikasi ecommerce ke Kubernetes
@@ -31,6 +32,9 @@ Penilaian:
 	- Order Virtual Service: https://github.com/geronimo794/a433-microservices/blob/deployment-asynchronous/kubernetes/istio/order-virtual-service.yml
 	- RabbitMq Gateway: https://github.com/geronimo794/a433-microservices/blob/deployment-asynchronous/kubernetes/istio/rabbitmq-gateway.yml
 	- RabbitMq Virtual Service: https://github.com/geronimo794/a433-microservices/blob/deployment-asynchronous/kubernetes/istio/rabbitmq-virtual-service.yml
+
+Saya sertakan juga file, link.txt untuk informasi link github package.
+
 
 Mohon masukan dan feedbacknya jika ada beberapa hal yang belum sesuai dengan Kriteria inti dan Penilaian tambahan.
 

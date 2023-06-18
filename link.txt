@@ -1,0 +1,2 @@
+Github Package Order: https://github.com/users/geronimo794/packages/container/package/order-service
+Github Package Shipping: https://github.com/users/geronimo794/packages/container/package/shipping-service
