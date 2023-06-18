@@ -34,7 +34,7 @@ Penilaian:
 	- RabbitMq Virtual Service: https://github.com/geronimo794/a433-microservices/blob/deployment-asynchronous/kubernetes/istio/rabbitmq-virtual-service.yml
 
 Saya sertakan juga file, link.txt untuk informasi link github package.
-
+https://github.com/geronimo794/a433-microservices/blob/deployment-asynchronous/link.txt
 
 Mohon masukan dan feedbacknya jika ada beberapa hal yang belum sesuai dengan Kriteria inti dan Penilaian tambahan.
 
