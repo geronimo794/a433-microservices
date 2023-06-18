@@ -1,21 +1,32 @@
+# Versi dari API untuk konfigurasi
 apiVersion: v1
+# Jenis dari konfigurasi: Service
 kind: Service
+# Informasi mengenai konfigurasi
 metadata:
+  # Anotasi ada identifier yang digunakan pengguna
+  # Untuk menyimpan informasi
   annotations:
     meta.helm.sh/release-name: rabbitmq
     meta.helm.sh/release-namespace: async
+  # Label digunakan untuk identifier kubernetes
   labels:
     app.kubernetes.io/instance: rabbitmq
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: rabbitmq
     helm.sh/chart: rabbitmq-12.0.1
+  # Nama dari service
   name: rabbitmq
+  # Namespace yang digunakan
   namespace: async
+# Spesifikasi dari service API
 spec:
+  # Artinya traffic hanya dapat diakses oleh cluster internal
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4
   ipFamilyPolicy: SingleStack
+  # Port yang akan diekspose oleh service dari deployment
   ports:
   - name: amqp
     port: 5672
@@ -37,6 +48,8 @@ spec:
     protocol: TCP
     appProtocol: tcp
     targetPort: stats
+  # Selector ke deployment atau statefulset
+  # Harus sesuai label
   selector:
     app.kubernetes.io/instance: rabbitmq
     app.kubernetes.io/name: rabbitmq

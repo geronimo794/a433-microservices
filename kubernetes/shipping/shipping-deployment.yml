@@ -5,9 +5,10 @@ kind: Deployment
 # Informasi mengenai konfigurasi
 metadata:
   name: shipping-deployment
-  # Menggunakan namespace karsa agar lebih mudah untuk debugging
+  # Menggunakan namespace async agar lebih mudah untuk debugging
+  # Dan pengelompokan
   namespace: async
-  # Identifier atau pelabelan saja
+  # Identifier atau pelabelan untuk digunakan oleh service
   labels:
     app: shipping
     type: service
@@ -39,19 +40,23 @@ spec:
       terminationGracePeriodSeconds: 10
       # Informasi container
       containers:
-      # Menggunakan repository yang ada pada: ghcr.io/geronimo794/karsajobs-ui
+      # Menggunakan repository yang ada pada: ghcr.io/geronimo794/shipping-service
       # Jika image belum ada, maka akan di pull terlebih dahulu
       - name: shipping-service
         image: ghcr.io/geronimo794/shipping-service:latest
         imagePullPolicy: IfNotPresent
+        # Pada saat pertama kali dijalankan, pod akan mengeksekusi perintah ini
+        # Menunggu rabbit mq untuk berjalan
         command: ["/bin/sh"]
         args: ["-c", "/bin/wait-for-it.sh rabbitmq:5672 --timeout=120 -- node index.js"]
         # Identifieer port internal yang akan diekspos
         ports:
         - containerPort: 3001
         # Environment variable yang akan di supply ke aplikasi
-        # NodeIp: menggunakan loopback ip dari node.
-        # NodePort: menggunakan nodeport pada service backend karsajobs-service.yml.
+        # ENV_RABBITMQ_USER: User dari rabbitmq
+        # ENV_RABBITMQ_PASSWORD: Password dari rabbitmq
+        # AMQP_URL: Url dari AMPQ rabbit mq
+        # PORT: Port dari aplikasi yang akan di ekspose
         env:
         - name: ENV_RABBITMQ_USER
           valueFrom:

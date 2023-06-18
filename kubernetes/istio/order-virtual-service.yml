@@ -1,19 +1,30 @@
+# Create api from istio netwoking
 apiVersion: networking.istio.io/v1alpha3
+# Type of configuration is virtual service
 kind: VirtualService
+# Metada or information of the configuration
 metadata:
   name: order-virtual-service
+  # Use async namespace for default namespace
   namespace: async
+# Spesification of configuration
 spec:
+  # Host of the virtual serivce
   hosts:
   - "*"
+  # Gateway name configuration
   gateways:
   - order-gateway
+  # Http match rule for order uri
   http:
   - match:
     - uri:
         exact: /order
+    # The destionation of order
     route:
     - destination:
+        # The destionation will be to order-service
         host: order-service
+        # With target port 3000
         port:
           number: 3000

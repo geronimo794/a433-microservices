@@ -1,11 +1,18 @@
+# Create api from istio netwoking
 apiVersion: networking.istio.io/v1alpha3
+# Type of configuration is gateway
 kind: Gateway
+# Metada or information of the configuration
 metadata:
   name: order-gateway
+  # Use async namespace for default namespace
   namespace: async
+# Spesification of configuration
 spec:
+  # Select the configuration that will be applied to
   selector:
     istio: ingressgateway # use istio default controller
+  # Define the expose port and protocol
   servers:
   - port:
       number: 31400

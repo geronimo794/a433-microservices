@@ -32,6 +32,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: rabbitmq-pvc
   # Menggunakan namespace async agar lebih mudah untuk debugging
+  # Dan pengelompokan
   namespace: async
   # Identifier atau pelabelan saja
   labels:

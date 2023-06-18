@@ -1,19 +1,29 @@
+# Create api from istio netwoking
 apiVersion: networking.istio.io/v1alpha3
+# Type of configuration is virtual service
 kind: VirtualService
+# Metada or information of the configuration
 metadata:
   name: rabbitmq-virtual-service
+  # Use async namespace for default namespace
   namespace: async
+# Spesification of configuration
 spec:
+  # Host of the virtual serivce
   hosts:
   - "*"
+  # Gateway name configuration
   gateways:
   - rabbitmq-gateway
+  # Http prefix rule to access rabbitmq
   http:
   - match:
     - uri:
         prefix: /
     route:
     - destination:
+        # The destionation will be to rabbitmq service
         host: rabbitmq
+        # With target port 15672
         port:
           number: 15672

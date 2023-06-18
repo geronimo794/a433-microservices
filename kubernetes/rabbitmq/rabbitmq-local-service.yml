@@ -1,14 +1,17 @@
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file will be
-# reopened with the relevant failures.
-#
+# Versi dari API untuk konfigurasi
 apiVersion: v1
+# Jenis dari konfigurasi: Service
 kind: Service
+# Informasi mengenai konfigurasi
 metadata:
   name: rabbitmq-local
+  # Menggunakan namespace async agar lebih mudah untuk debugging
   namespace: async
+# Detail spesifikasi API
 spec:
   ports:
+  # Port yang akan diekspose dari deployment
+  # Dan port yang akan diekspos ke NodePort
   - name: http-stats
     port: 15672
     protocol: TCP
@@ -17,4 +20,5 @@ spec:
   selector:
     app.kubernetes.io/instance: rabbitmq
     app.kubernetes.io/name: rabbitmq
+  # Jenis kosong artinya sebagai NodePort
   type: NodePort

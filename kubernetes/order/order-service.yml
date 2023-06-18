@@ -5,7 +5,7 @@ kind: Service
 # Informasi mengenai konfigurasi
 metadata:
   name: order-service
-  # Menggunakan namespace karsa agar lebih mudah untuk debugging
+  # Menggunakan namespace async agar lebih mudah untuk debugging
   namespace: async
   # Identifier atau pelabelan saja
   labels:
@@ -14,18 +14,16 @@ metadata:
 
 # Detail spesifikasi API
 spec:
-  # Jenis NodePort artinya nanti service dapat diakses
-  # melalui NodeIp kemudian NodePort yang kita atur atau diberikan
-  # type: NodePort
+  # Jenis kosong artinya sebagai ClusterIP
   ports:
-  # Internal port dari deployment
+  # Port yang akan diekspose
   - port: 3000
+    # Target port dari aplikasi
     targetPort: 3000
+    # Jenis protokol dari aplikasi
+    # Digunakan oleh istio
     appProtocol: http
 
-    # Eksternal port yang dapat diakses oleh Node
-    # Applikasi dapat diakses melalui browser localhost:31000
-    # nodePort: 30200
   # Selector digunakan untuk identifier guna menghubungkan deployment
   # Selector yang ada di service, harus sama dengan yang ada di deployment
   selector:

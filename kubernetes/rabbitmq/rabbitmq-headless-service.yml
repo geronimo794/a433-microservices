@@ -1,20 +1,27 @@
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file will be
-# reopened with the relevant failures.
-#
+# Versi dari API untuk konfigurasi
 apiVersion: v1
+# Jenis dari konfigurasi: Service
 kind: Service
+# Informasi mengenai konfigurasi
 metadata:
+  # Anotasi ada identifier yang digunakan pengguna
+  # Untuk menyimpan informasi
   annotations:
     meta.helm.sh/release-name: rabbitmq
     meta.helm.sh/release-namespace: async
+  # Label digunakan untuk identifier kubernetes
   labels:
     app.kubernetes.io/instance: rabbitmq
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: rabbitmq
+  # Nama dari service
   name: rabbitmq-headless
+  # Namespace yang digunakan
   namespace: async
+# Spesifikasi dari service API
 spec:
+  # Cluester no artinya service di deploy sebagai Headless
+  # Atau tanpa IP
   clusterIP: None
   clusterIPs:
   - None
@@ -22,6 +29,7 @@ spec:
   ipFamilies:
   - IPv4
   ipFamilyPolicy: SingleStack
+  # Port yang akan diekspose oleh service dari deployment
   ports:
   - name: epmd
     port: 4369
@@ -43,7 +51,11 @@ spec:
     protocol: TCP
     appProtocol: tcp
     targetPort: stats
+  # Jika address oleh deployment belum siap
+  # Maka tidak akan dipublish oleh service
   publishNotReadyAddresses: true
+  # Selector ke deployment atau statefulset
+  # Harus sesuai label
   selector:
     app.kubernetes.io/instance: rabbitmq
     app.kubernetes.io/name: rabbitmq
