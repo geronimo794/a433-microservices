@@ -3,3 +3,4 @@ local.env
 
 # Ignore rabbit mq persistent data
 /rabbitmq/*
+/kubernetes/*
